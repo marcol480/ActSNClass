@@ -1,0 +1,13 @@
+from actsnclass import DataBase_marco
+path_to_features_file = 'test-marco/results/Bazin.dat'
+data_marco = DataBase_marco()
+data_marco.load_features(path_to_features_file, method='Bazin')
+data_marco.build_samples(initial_training='original', nclass=2)
+data_marco.classify(method='RandomForest')
+
+print(data_marco.classprob)
+data_marco.evaluate_classification(metric_label='snpcc')
+print(data_marco.metrics_list_names)
+print(data_marco.metrics_list_values)
+
+

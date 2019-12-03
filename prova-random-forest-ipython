@@ -1,0 +1,17 @@
+from actsnclass import DataBase
+path_to_features_file = 'test-marco/results/Bazin.dat'
+data = DataBase()
+data.load_features(path_to_features_file, method='Bazin')
+data.build_samples(initial_training='original', nclass=2)
+data.classify(method='RandomForest')
+print(data.classprob)
+data.evaluate_classification(metric_label='snpcc')
+print(data.metrics_list_names)          
+print(data.metrics_list_values)
+
+#metrics_file = 'test-marco/results/metrics.dat'
+#queried_sample_file = 'test-marco/results/queried_sample.dat'
+#
+#data.save_metrics(loop=1, output_metrics_file=metrics_file, epoch=0)
+#data.save_queried_sample(loop=0, queried_sample_file=query_file, full_sample=False)
+

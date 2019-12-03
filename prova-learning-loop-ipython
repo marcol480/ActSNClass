@@ -1,0 +1,16 @@
+from actsnclass.learn_loop import  learn_loop
+
+nloops = 800                                  # number of iterations
+method = 'Bazin'                               # only option in v1.0
+ml = 'RandomForest'                            # only option in v1.0
+strategy = 'RandomSampling'                    # learning strategy
+input_file = 'test-marco/results/Bazin.dat'               # input features file
+diag = 'test-marco/results/diagnostic.dat'                # output diagnostic file
+importance = 'test-marco/results/features_importance.dat'                # output features importance file
+queried = 'test-marco/results/queried.dat'                # output query file
+train = 'original'                             # initial training
+batch = 1                                      # size of batch
+
+learn_loop(nloops=nloops, features_method=method, classifier=ml,strategy=strategy, path_to_features=input_file, output_diag_file=diag, output_import_file=importance, output_queried_file=queried, training=train, batch=batch)
+
+

@@ -1,0 +1,15 @@
+from actsnclass.plot_results import Canvas
+
+# define parameters
+path_to_files = ['test-marco/results/diagnostic_time.dat', 'test-marco/results/diagnostic-spark_time.dat']
+strategies_list = ['RandomSampling' , 'Canonical']
+output_plot = 'test-marco/plots/diagnostic-marco_time.png'
+
+#Initiate the Canvas object, read and plot the results for
+# each diagnostic and strategy.
+cv = Canvas()
+cv.load_diagnostics(path_to_files=path_to_files, strategies_list=strategies_list)
+cv.set_plot_dimensions()
+cv.plot_diagnostics(output_plot_file=output_plot, strategies_list=strategies_list)
+
+

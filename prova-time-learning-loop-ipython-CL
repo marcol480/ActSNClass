@@ -1,0 +1,17 @@
+#from actsnclass.time_domain_loop import  time_domain_loop 
+#days =[21,23]                                #number of days
+#nloops = 200                                   #number of iterations
+#method = 'Bazin'                               # only option in v1.0
+#ml = 'RandomForest'                            # only option in v1.0
+strategy = 'RandomSampling'                    # learning strategy
+#input_file = 'test-marco/results/time_domain/'               # input features file
+#diag = 'test-marco/results/diagnostic_time.dat'                # output diagnostic file
+#queried = 'test-marco/results/queried_time.dat'                # output query file
+train = 'original'                             # initial training
+#batch = 1                                      # size of batch
+
+#time_domain_loop(days = days, output_diag_file=diag, output_queried_file=queried, path_to_features_dir=input_file, strategy=strategy,
+#batch=batch, classifier=ml, features_method=method, training=train)
+
+run_time_domain.py -d 21 23 -m 'test-marco/results/metrics_random_time.dat' -q 'test-marco/results/queried_time.dat' -f  'test-marco/results/time_domain/' -s 'RandomSampling' -t 'original'
+
