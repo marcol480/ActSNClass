@@ -47,6 +47,7 @@ def get_original_training(path_to_features, method='Bazin', screen=False):
 
 
 def time_domain_loop(days: list,  output_diag_file: str,
+                     output_import_file: str,
                      output_queried_file: str,
                      path_to_features_dir: str, strategy: str,
                      batch=1, canonical = False,  classifier='RandomForest',
@@ -62,6 +63,8 @@ def time_domain_loop(days: list,  output_diag_file: str,
         beginning of the survey.
     output_diag_file: str
         Full path to output file to store diagnostics of each loop.
+    output_import_file: str
+        Full path to output file storing feature importance of each loop.
     output_queried_file: str
         Full path to output file to store the queried sample.
     path_to_features_dir: str
@@ -142,6 +145,10 @@ def time_domain_loop(days: list,  output_diag_file: str,
         # save diagnostics for current state
         data.save_metrics(loop=loop, output_metrics_file=output_diag_file,
                           batch=batch, epoch=night)
+
+        # save features importance for current state
+        data.save_features_importance(loop=loop, output_importance_file=output_import_file,
+                          batch=batch, epoch=loop)
 
         # save query sample to file
         data.save_queried_sample(output_queried_file, loop=loop,

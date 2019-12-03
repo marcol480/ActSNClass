@@ -22,9 +22,10 @@ from actsnclass import DataBase
 
 
 def learn_loop(nloops: int, strategy: str, path_to_features: str,
-               output_diag_file: str, output_queried_file: str,
-               features_method='Bazin', classifier='RandomForest',
-               training='original', batch=1, screen=True):
+               output_diag_file: str, output_import_file: str,
+               output_queried_file: str, features_method='Bazin',
+               classifier='RandomForest',training='original',
+               batch=1, screen=True):
     """Perform the active learning loop. All results are saved to file.
 
     Parameters
@@ -37,6 +38,8 @@ def learn_loop(nloops: int, strategy: str, path_to_features: str,
         Complete path to input features file.
     output_diag_file: str
         Full path to output file to store diagnostics of each loop.
+    output_import_file: str
+        Full path to output file to strore features importance.
     output_queried_file: str
         Full path to output file to store the queried sample.
     features_method: str (optional)
@@ -85,6 +88,10 @@ def learn_loop(nloops: int, strategy: str, path_to_features: str,
 
         # save diagnostics for current state
         data.save_metrics(loop=loop, output_metrics_file=output_diag_file,
+                          batch=batch, epoch=loop)
+
+        # save features importance for current state
+        data.save_features_importance(loop=loop, output_importance_file=output_import_file,
                           batch=batch, epoch=loop)
 
         # save query sample to file

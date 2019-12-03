@@ -46,6 +46,8 @@ def random_forest(train_features:  np.array, train_labels: np.array,
         Predicted classes.
     prob: np.array
         Classification probability for all objects, [pIa, pnon-Ia].
+    importances: np.array
+        Features importance leading the classification.
     """
 
     # create classifier instance
@@ -53,8 +55,10 @@ def random_forest(train_features:  np.array, train_labels: np.array,
     clf.fit(train_features, train_labels)                     # train
     predictions = clf.predict(test_features)                # predict
     prob = clf.predict_proba(test_features)       # get probabilities
+    importances = np.array(
+                list(clf.feature_importances_))  # get feature's importance
 
-    return predictions, prob
+    return predictions, prob, importances
 
 
 def main():

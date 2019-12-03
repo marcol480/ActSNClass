@@ -20,7 +20,9 @@ from .bazin import bazin, fit_scipy
 from .build_snpcc_canonical import build_snpcc_canonical
 from .build_snpcc_canonical import Canonical, plot_snpcc_train_canonical
 from .classifiers import random_forest
+from .classifiers_marco import random_forest_spark
 from .database import DataBase
+from .database_marco import DataBase_marco
 from .fit_lightcurves import fit_snpcc_bazin, LightCurve
 from .learn_loop import learn_loop
 from .metrics import accuracy, efficiency, fom, purity, get_snpcc_metric

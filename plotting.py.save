@@ -1,0 +1,9 @@
+from actsnclass.plot_results import Canvas
+
+path_to_files = ['test-marco/results/metrics_canonical.dat', 'test-marco/results/metrics_random.dat', 'test-marco/results/metrics_unc.dat'] 
+strategies_list = ['Canonical', 'RandomSampling', 'UncSampling']
+output_plot = 'test-marco/plots/diag.png'
+cv = Canvas() 
+cv.load_diagnostics(path_to_files=path_to_files, strategies_list=strategies_list) 
+cv.set_plot_dimensions() 
+cv.plot_diagnostics(output_plot_file=output_plot, strategies_list=strategies_list)

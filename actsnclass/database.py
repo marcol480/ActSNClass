@@ -49,6 +49,8 @@ class DataBase:
         Values for metric elements.
     predicted_class: np.array
         Predicted classes - results from ML classifier.
+    features_importance: np.array
+        Relevant features - results from ML classifier.
     queried_sample: list
         Complete information of queried objects.
     queryable_ids: np.array()
@@ -86,6 +88,8 @@ class DataBase:
         Save current metrics to file.
     save_queried_sample(queried_sample_file: str, loop: int, full_sample: str)
         Save queried sample to file.
+    save_features_importance(loop: int, output_importance_file: str)
+        Save features importance to file.
 
     Examples
     --------
@@ -144,6 +148,7 @@ class DataBase:
         self.metrics_list_names = []
         self.metrics_list_values = []
         self.predicted_class = np.array([])
+        self.features_importance = np.array([])
         self.queried_sample = []
         self.queryable_ids = np.array([])
         self.test_features = np.array([])
@@ -321,7 +326,7 @@ class DataBase:
         """
 
         if method == 'RandomForest':
-            self.predicted_class,  self.classprob = \
+            self.predicted_class,  self.classprob, self.features_importance = \
                 random_forest(self.train_features, self.train_labels,
                               self.test_features)
 
@@ -480,6 +485,42 @@ class DataBase:
             for j in range(batch):
                 metrics.write(str(self.queried_sample[loop][j][1]) + ' ')
             metrics.write('\n')
+
+    def save_features_importance(self, loop: int, output_importance_file: str, epoch: int, batch=1):
+        """Save feature importance to file.
+
+        If loop == 0 the 'output_importance_file' will be created or overwritten.
+        Otherwise results will be added to an existing 'output_importance_file'.
+
+        Parameters
+        ----------
+        loop: int
+            Number of learning loops finished at this stage.
+        output_importance_file: str
+            Full path to file to store features importance results.
+        batch: int
+            Number of queries in each loop.
+        epoch: int
+            Days since the beginning of the survey.
+        """
+
+        # add header to importance file
+        if not os.path.exists(output_importance_file) or loop == 0:
+            with open(output_importance_file, 'w') as importance:
+                importance.write('loop'+',')
+                for name in self.features_names:
+                    importance.write(name + ',')
+                importance.write('\n')
+
+        # write to file
+        with open(output_importance_file, 'a') as importance:
+            importance.write(str(epoch) + ',')
+            for value in self.features_importance:
+                importance.write(str(value) + ',')
+            importance.write('\n')
+
+        #np.savetxt(output_importance_file, self.features_importance, delimiter='\t', newline='\n')
+
 
     def save_queried_sample(self, queried_sample_file: str, loop: int,
                             full_sample=False, batch=1):
